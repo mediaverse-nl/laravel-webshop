@@ -51,9 +51,10 @@ Route::group(['middleware' => 'web'], function (){
         return view('/auth.admin.index');
     });
 
-    Route::get('/form', function(){
-        return view('/form');
-    });
+    Route::get('/profile', function(){
+        $user = App\User::find(Auth::id());
+        return view('/auth.user.profile')->with('user', $user);
+    })->middleware('auth');
 
     Route::resource('product', 'ProductController');
     Route::get('/admin/products', 'ProductController@index')->middleware('auth');
