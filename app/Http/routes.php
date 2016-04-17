@@ -47,6 +47,17 @@ Route::group(['middleware' => 'web'], function (){
         return view('orders', $data);
     })->middleware('auth');
 
+    Route::get('/admin', function(){
+        return view('/auth.admin.index');
+    });
+
+    Route::get('/form', function(){
+        return view('/form');
+    });
+
+    Route::resource('product', 'ProductController');
+    Route::get('/admin/products', 'ProductController@index')->middleware('auth');
+
     //admin routes
     Route::get('gang', function (){
         echo 'gang ';
