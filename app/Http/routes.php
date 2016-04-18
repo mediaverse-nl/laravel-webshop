@@ -11,34 +11,24 @@
 |
 */
 
-Route::get('/contact', function () {
+Route::get('/', function(){
+    return view('/home');
+});
+Route::get('home', function(){
+    return view('/home');
+});
+Route::get('contact', function () {
     return 'contact';
 });
+Route::resource('products', 'ProductController');
 
-Route::get('/product', function () {
-    $product = App\products::find(1);
-    $product->name;
-});
-
-Route::get('/orderaa', function () {
-    $orders = App\Orders::all();
-
-    foreach ($orders as $order){
-        $product = App\User::find($order->name);
-        echo $product->name;
-    }
-});
-
-
+//middleware
 Route::group(['middleware' => 'web'], function (){
 
-    Route::auth();
-    Route::get('/', function(){
-        return view('welcome');
-    });
-
     //auth routes
-    Route::get('/orders', function () {
+    Route::auth();
+    Route::get('profile', ['middleware' => 'auth', 'uses' => 'UserController@showProfile'])->middleware('auth');
+    Route::get('orders', function () {
         $user = App\User::find(Auth::id());
         $data = array(
             'user' => $user,
@@ -47,24 +37,19 @@ Route::group(['middleware' => 'web'], function (){
         return view('orders', $data);
     })->middleware('auth');
 
-    Route::get('/admin', function(){
-        return view('/auth.admin.index');
-    });
-
-    Route::get('/profile', function(){
-        $user = App\User::find(Auth::id());
-        return view('/auth.user.profile')->with('user', $user);
-    })->middleware('auth');
-
-    Route::resource('product', 'ProductController');
-    Route::get('/admin/products', 'ProductController@index')->middleware('auth');
+    //Route::get('/profile', function(){
+     //   $user = App\User::find(Auth::id());
+     //   return view('/auth.user.profile')->with('user', $user);
+    //})->middleware('auth');
 
     //admin routes
-    Route::get('gang', function (){
-        echo 'gang ';
+    Route::get('admin', function(){
+        return view('auth.admin.index');
     })->middleware('isAdmin');
+    Route::get('admin/products', 'ProductController@index')->middleware('isAdmin');
 
-    Route::get('/home', 'HomeController@index');
+    //Route::post('/product/add', array('as' => 'produts', 'uses' => 'ProductController@store'))->middleware('auth');
+
 });
 
 

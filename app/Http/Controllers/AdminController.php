@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Product;
 
-class ProductController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-
-        return view('auth.admin.products.index')
-            ->with('products', $products);
+        //
     }
 
     /**
@@ -27,8 +23,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(){
-        return view('products.create');
+    public function create()
+    {
+        //
     }
 
     /**
@@ -39,13 +36,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = new Product;
-
-        $product = $request->all();
-
-        $product->save();
-
-        return redirect()->route('product.index');
+        //
     }
 
     /**
@@ -56,10 +47,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
-
-        return view('products.show')
-            ->with('product', $product);
+        //
     }
 
     /**
@@ -70,10 +58,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::where('id', $id)->first();
-
-        return view('products.edit')
-            ->with('product', $product);
+        //
     }
 
     /**
@@ -85,14 +70,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
-
-        $product->product_price = $request->price;
-        $product->product_name = $request->name;
-
-        $product->save();
-
-        return redirect()->route('product.index');
+        //
     }
 
     /**
@@ -103,9 +81,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id)
-            ->delete();
-
-        return redirect()->route('product.index');
+        //
     }
 }
