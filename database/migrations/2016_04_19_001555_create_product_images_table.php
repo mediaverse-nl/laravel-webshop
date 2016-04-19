@@ -14,7 +14,11 @@ class CreateProductImagesTable extends Migration
     {
         Schema::create('product_images', function (Blueprint $table) {
             $table->increments('id')->index();
-            $table->integer('user_id')->index();
+           // $table->integer('user_id')->index();
+            $table->foreign('user_id')
+                ->index()
+                ->references('id')
+                ->on('products');;
             $table->string('path', 20)->index();
             $table->timestamp('created_at');
         });
@@ -27,6 +31,6 @@ class CreateProductImagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('password_resets');
+        Schema::drop('product_images');
     }
 }
