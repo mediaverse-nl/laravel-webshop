@@ -23,6 +23,13 @@
         .fa-btn {
             margin-right: 6px;
         }
+
+        footer{
+            width: 100%;
+            height: 300px;
+            background-color: #F8F8F8;
+            border-top: 1px solid #E7E7E7;
+        }
     </style>
 </head>
 <body id="app-layout">
@@ -47,7 +54,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    <li><a href="{{ url('/') }}">Home</a></li>
                     <li><a href="{{ url('/products') }}">Products</a></li>
                     <li><a href="{{ url('/contact') }}">Contact</a></li>
                 </ul>
@@ -83,6 +90,9 @@
     </nav>
 
     @yield('content')
+
+
+    @extends('layouts.footer')
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
